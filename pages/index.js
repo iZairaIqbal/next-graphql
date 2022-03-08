@@ -1,3 +1,4 @@
+import React from 'react';
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
 import {SpotifyGraphQLClient} from 'spotify-graphql';
@@ -6,7 +7,6 @@ import client from "../apollo/apollo-client";
 import { gql } from "@apollo/client";
 import Playlist from "../components/Playlist";
 import Country from "../components/Country";
-
 
 export default function Home({ playlists, countries }) {
   return (
@@ -21,13 +21,13 @@ export default function Home({ playlists, countries }) {
           Playlists
         </p>
 
-        <div className={styles.grid}>
+        <div key={"playlists"} className={styles.grid}>
           {playlists.map((playlist) => (
-            <Playlist key={playlist.name} playlist={playlist}/>
+            <Playlist key={playlist.id} playlist={playlist}/>
           ))}
         </div>
 
-        <div className={styles.grid}>
+        <div key={"countries"} className={styles.grid}>
           {countries.map((country) => (
             <Country key={country.name} country={country}/>
           ))}
@@ -42,15 +42,22 @@ export async function getStaticProps() {
   {
     user(id: "11879785") {
       playlists {
+        id
         name
         images {
           url
+        }
+        tracks {
+          track {
+            id
+            name
+          }
         }
       }
     }
   }`
   ).then(result => {
-    console.log(result)
+    console.log(JSON.stringify(result))
     return result.data;
   });
 

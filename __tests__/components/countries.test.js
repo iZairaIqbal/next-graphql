@@ -8,6 +8,5 @@ describe("Countries", () => {
     const {getByText} = render(<Country country={{name: "Pakistan", code: "PK"}} />);
     expect(getByText("Pakistan")).toBeInTheDocument();
     expect(getByText("PK")).toBeInTheDocument();
-
   });
 });

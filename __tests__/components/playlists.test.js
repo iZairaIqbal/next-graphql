@@ -2,12 +2,10 @@ import { render } from "@testing-library/react";
 import '@testing-library/jest-dom'
 import React from "react";
 import Playlist from "../../components/Playlist";
-// Using render and screen from test-utils.js instead of
-// @testing-library/react
 
 describe("Playlists", () => {
   it("should render playlists", () => {
-    const {getByText} = render(<Playlist playlist={{name: "test playlist", images: [{url: "https://test.png"}]}} />);
+    const {getByText} = render(<Playlist playlist={{id: 1, name: "test playlist", tracks: [{track: {id: 1, name: "test song"}}], images: [{url: "https://test.png"}]}} />);
     expect(getByText("test playlist")).toBeInTheDocument();
   });
 });
